@@ -1,0 +1,35 @@
+name: publish
+
+on: [push]
+
+jobs:
+
+publish-docker_chrony-image:
+
+runs-on: ubuntu-latest
+
+steps:
+
+- uses: actions/checkout@v2
+
+- name: login to github container registry
+
+uses: docker/login-action@v1
+
+with:
+
+registry: ghcr.io
+
+username: ${{ github.actor }}
+
+password: ${{ secrets.GITHUB_TOKEN }}
+
+- name: build the hello-docker Docker image
+
+run: |
+
+       docker build . --tag ghcr.io/ftflstwd/docker_chrony:latest
+
+       docker run ghcr.io/ftflstwd/docker_chrony:latest
+
+       docker push ghcr.io/ftflstwd/docker_chrony:latest
