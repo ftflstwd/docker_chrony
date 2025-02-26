@@ -20,6 +20,3 @@ COPY chrony.conf /etc/chrony/chrony.conf
 EXPOSE 123/udp
 
 ENTRYPOINT ["chronyd", "-x", "-d", "-f", "/etc/chrony/chrony.conf"]
-
-HEALTHCHECK --interval=30s --timeout=3s \
-    CMD chronyc tracking || exit 1
